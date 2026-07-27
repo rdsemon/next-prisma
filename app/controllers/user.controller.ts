@@ -11,3 +11,22 @@ export const getAllUsers = async () => {
   const users = await prisma.user.findMany();
   return NextResponse.json(users);
 };
+
+export const getOneUser = async (id: string) => {
+  const user = await prisma.user.findUnique({ where: { id } });
+  if (!user) {
+    return NextResponse.json({ message: "user not found" }, { status: 404 });
+  }
+  return NextResponse.json(user);
+};
+
+export const deleteUser = async (id: string) => {
+  const user = await prisma.user.findUnique({ where: { id } });
+  if (!user) {
+    return NextResponse.json({ message: "user not found" }, { status: 404 });
+  }
+
+  await prisma.user.delete({ where: { id } });
+
+  return NextResponse.json({ message: "delete successful" });
+};
