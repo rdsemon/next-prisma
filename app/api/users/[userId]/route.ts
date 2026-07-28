@@ -1,4 +1,8 @@
-import { getOneUser, deleteUser } from "@/app/controllers/user.controller";
+import {
+  getOneUser,
+  deleteUser,
+  updateUser,
+} from "@/app/controllers/user.controller";
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ userId: string }> },
@@ -14,4 +18,11 @@ export async function DELETE(
   const { userId } = await params;
 
   return deleteUser(userId);
+}
+
+export async function PATCH(
+  req: Request,
+  { params }: { params: Promise<{ userId: string }> },
+) {
+  return updateUser(req, params);
 }
