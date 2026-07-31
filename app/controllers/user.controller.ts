@@ -36,7 +36,8 @@ export const updateUser = async (
   params: Promise<{ userId: string }>,
 ) => {
   const { userId } = await params;
-  const data = req.body;
+  const { name } = await req.json();
+
   const user = await prisma.user.findUnique({ where: { id: userId } });
   if (!user) {
     return NextResponse.json({ message: "user not found" }, { status: 404 });
@@ -44,7 +45,7 @@ export const updateUser = async (
 
   const updatUser = await prisma.user.update({
     where: { id: userId },
-    data: { data },
+    data: { name },
   });
 
   return NextResponse.json(updatUser);
