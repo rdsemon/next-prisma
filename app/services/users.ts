@@ -22,10 +22,9 @@ export const getuserById = async (id: string) => {
 
 export const updateUser = async (id: string, name: string) => {
   try {
-    const data = name;
-    const response = await api.patch(`/users/${id}`, data);
+    const response = await api.patch(`/users/${id}`, { name });
     const userData = response.data;
-    console.log(userData);
+    return userData;
   } catch (error) {
     console.log(error);
   }
